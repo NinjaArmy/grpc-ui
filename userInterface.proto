@@ -1,0 +1,102 @@
+/* This is where the magic happens 
+   Protocol Buffers are language and platfrom neutral
+   We define our service definitions and messages here.
+   This is written in IDL (Interface Definition Language) --> it's like an interface between the client and server
+
+*/
+syntax = "proto3";
+
+/* Defining a UserInterface item accordingly to UserInterfaceDescription.kt 
+   There are not a lot of datatypes in proto
+*/
+message UserInterface {
+    string id = 1;
+    string applianceId = 2;
+    string layout = 3;
+    string notifications = 4;
+    string categories = 5;
+    string userInterfaceParameters = 6;
+    string timestamp = 7;
+}
+
+message Empty {}
+
+message UserInterfaceId {
+    string id = 1;
+}
+
+/* Response Object */
+message UserInterfaceList {
+    repeated UserInterface userInterfaces = 1;
+}
+
+/* Objects in .kt file don't know if we need this here..
+   Probably I need to define these messages in the UserInterface Object
+*/
+message Layout {
+    string id = 1;
+    enum ApplianceType {
+        /* Couldnt find the appliancedescription need paramaters here */
+        MANUFACTURER = 0;
+        MODEL = 1;
+    }
+    ApplianceType applianceType = 2;
+    string views = 3;
+}
+
+message Notifcation {
+    string id = 1;
+    /* Enumeration for notifcation type */
+    enum NotificationType {
+        DOOR_OPEN = 0;
+        PROGRAM_FINISHED = 1;
+        ADD_PROGRAM = 2;
+        FUNCTION_NOT_AVAILABLE = 3;
+        EMPTY = 4; //represents missing resources (e.g. Milk, Beans, Laundry Detergent, etc.)
+    }
+    NotificationType type = 2;
+
+    string topic = 3;
+    string description = 4;
+}
+
+message View {
+    string id = 0;
+    enum ViewType {
+        STANDBY = 1;
+        IDENTIFICATION = 2;
+        HOMESCREEN = 3;
+        ACTIVE_PROGRAM = 4;
+        LIBRARY = 5;
+        PROGRAM_SETTINGS = 6;
+    }
+    ViewType type = 2;
+
+}
+
+message userInterfaceParameters{
+    string font = 1;
+    string fontSizeMultiplier = 2;
+    string contrast = 3;
+    string elementSize = 4;
+    bool fontBold = 5;
+    bool fontItalic = 6;
+    bool fontUnderline = 7;
+}
+
+
+/* Defining RPC service
+   The protocol buffer compiler will generate service interface code and stubs in our chosen language. 
+ */
+service UserInterfaceService {
+    /* requires an empty object as argument and return an array/list of Userinterfaces */
+    rpc GetAllUserInterface (Empty) returns (UserInterfaceList) {}
+
+    /* requires the UserInterfaceId as argument and returns the UserInterface Object.. */
+    rpc GetUserInterface(UserInterfaceId) returns (UserInterface) {}
+    rpc AddUserInterface (UserInterface) returns (UserInterface) {}
+    rpc EditUserInterface (UserInterface) returns (UserInterface) {}
+    rpc DeleteUserInterface (UserInterfaceId) returns (Empty) {}
+}
+
+
