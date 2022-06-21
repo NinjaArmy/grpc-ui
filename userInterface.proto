@@ -12,9 +12,18 @@ syntax = "proto3";
 message UserInterface {
     string id = 1;
     string applianceId = 2;
-    string categories = 3;
-    string timestamp = 4;
-
+   
+    message Layout {
+        string id = 1;
+        enum ApplianceType {
+            /* Couldnt find the appliancedescription need paramaters here */
+            MANUFACTURER = 0;
+            MODEL = 1;
+        }
+        ApplianceType applianceType = 2;
+        string views = 3;
+    }
+    
     message View {
         string id = 0;
         enum ViewType {
@@ -26,17 +35,6 @@ message UserInterface {
             PROGRAM_SETTINGS = 6;
         }
         ViewType type = 2;
-    }
-
-    message Layout {
-        string id = 1;
-        enum ApplianceType {
-            /* Couldnt find the appliancedescription need paramaters here */
-            MANUFACTURER = 0;
-            MODEL = 1;
-        }
-        ApplianceType applianceType = 2;
-        string views = 3;
     }
 
     message Notifcation {
@@ -64,6 +62,8 @@ message UserInterface {
         bool fontItalic = 6;
         bool fontUnderline = 7;
     }
+    string categories = 3;
+    string timestamp = 4;
 }
 
 message Empty {}
