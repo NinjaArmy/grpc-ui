@@ -11,7 +11,7 @@ syntax = "proto3";
 */
 message UserInterface {
     string id = 1;
-    string applianceId = 2;
+    string appliance_id = 2;
    
     message Layout {
         string id = 1;
@@ -20,19 +20,19 @@ message UserInterface {
             MANUFACTURER = 0;
             MODEL = 1;
         }
-        ApplianceType applianceType = 2;
+        ApplianceType appliance_type = 2;
         string views = 3;
     }
     
     message View {
         string id = 0;
         enum ViewType {
-            STANDBY = 1;
-            IDENTIFICATION = 2;
-            HOMESCREEN = 3;
-            ACTIVE_PROGRAM = 4;
-            LIBRARY = 5;
-            PROGRAM_SETTINGS = 6;
+            STANDBY = 0;
+            IDENTIFICATION = 1;
+            HOMESCREEN = 2;
+            ACTIVE_PROGRAM = 3;
+            LIBRARY = 4;
+            PROGRAM_SETTINGS = 5;
         }
         ViewType type = 2;
     }
@@ -55,12 +55,12 @@ message UserInterface {
 
     message userInterfaceParameters{
         string font = 1;
-        string fontSizeMultiplier = 2;
+        string font_size_multiplier = 2;
         string contrast = 3;
-        string elementSize = 4;
-        bool fontBold = 5;
-        bool fontItalic = 6;
-        bool fontUnderline = 7;
+        string element_size = 4;
+        bool font_bold = 5;
+        bool font_italic = 6;
+        bool font_underline = 7;
     }
     string categories = 3;
     string timestamp = 4;

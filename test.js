@@ -2,16 +2,17 @@ const client = require("./client");
 
 client.getAllUserInterface({}, (error, userInterfaces) => {
   if (!error) throw error;
-  for(let i = 0; i < userInterfaces.length; i++){
+/*   for(let i = 0; i < userInterfaces.length; i++){
     console.log(userInterfaces[i]);
-  }
+  } */
+  console.log(userInterfaces);
 });
 
 // add userInterface
 client.addUserInterface(
   { 
     id: 3,
-    applianceId: 3, 
+    appliance_id: 3, 
     Layout: {
       id: 1,
       ApplianceType: {
@@ -19,7 +20,7 @@ client.addUserInterface(
         MODEL: "LG-Coffee"
       },
       // Question here
-      applianceType: "",
+      appliance_type: "",
       views: 1
     },
     View: {
@@ -50,13 +51,13 @@ client.addUserInterface(
     },
     userInterfaceParameters: {
       font: "sans-serif",
-      fontSizeMultiplier: 1,
+      font_size_multiplier: 1,
       contrast: 3,
-      elementSize: 12,
+      element_size: 12,
       //  0==false || 1==true
-      fontBold: 0,
-      fontItalic: 0,
-      fontUnderline: 0,
+      font_bold: 0,
+      font_italic: 0,
+      font_underline: 0,
     },
     categories: "Coffee",
     timestamp: "19.06.2022 - 22:44 "
@@ -73,7 +74,7 @@ client.addUserInterface(
 /* client.editUserInterface(
   {
     id: "2 edited",
-    applianceId: "2 edited", 
+    appliance_id: "2 edited", 
     layout: "custom edited", 
     notifications: "Program started edited",
     categories: "Tea edited",

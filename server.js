@@ -17,7 +17,7 @@ const server = new grpc.Server();
 let userInterfaces = [
   { 
     id: 1,
-    applianceId: 1, 
+    appliance_id: 1, 
     Layout: {
       id: 1,
       ApplianceType: {
@@ -25,7 +25,7 @@ let userInterfaces = [
         MODEL: "X-3"
       },
       // Question here
-      applianceType: "",
+      appliance_type: "",
       views: 1
     },
     View: {
@@ -56,20 +56,20 @@ let userInterfaces = [
     },
     userInterfaceParameters: {
       font: "sans-serif",
-      fontSizeMultiplier: 1,
+      font_size_multiplier: 1,
       contrast: 3,
-      elementSize: 12,
+      element_size: 12,
       //  0==false || 1==true
-      fontBold: 0,
-      fontItalic: 0,
-      fontUnderline: 0,
+      font_bold: 0,
+      font_italic: 0,
+      font_underline: 0,
     },
     categories: "Coffee",
     timestamp: "19.06.2022 - 22:44 "
   },
   { 
     id: 2,
-    applianceId: 2, 
+    appliance_id: 2, 
     Layout: {
       id: 1,
       ApplianceType: {
@@ -77,7 +77,7 @@ let userInterfaces = [
         MODEL: "S12"
       },
       // Question here
-      applianceType: "",
+      appliance_type: "",
       views: 1
     },
     View: {
@@ -108,13 +108,13 @@ let userInterfaces = [
     },
     userInterfaceParameters: {
       font: "sans-serif",
-      fontSizeMultiplier: 1,
+      font_size_multiplier: 1,
       contrast: 3,
-      elementSize: 12,
+      element_size: 12,
       //  0==false || 1==true
-      fontBold: 0,
-      fontItalic: 0,
-      fontUnderline: 0,
+      font_bold: 0,
+      font_italic: 0,
+      font_underline: 0,
     },
     categories: "espresso",
     timestamp: "21.06.2022 - 22:54"
@@ -140,7 +140,7 @@ server.addService(userInterfaceProto.UserInterfaceService.service, {
     const userInterfaceItem = userInterfaces.find(({ id }) => userInterfaceId == id);
     
     /* timestamp probably not editable? */
-    userInterfaceItem.applianceId = _.request.applianceId;
+    userInterfaceItem.appliance_id = _.request.appliance_id;
     userInterfaceItem.layout = _.request.layout;
     userInterfaceItem.notifications = _.request.notifications;
     userInterfaceItem.categories = _.request.categories;
