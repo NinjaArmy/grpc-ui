@@ -57,7 +57,6 @@ message UserInterface {
             EMPTY = 4; //represents missing resources (e.g. Milk, Beans, Laundry Detergent, etc.)
         }
         NotificationType type = 2;
-    
         string topic = 3;
         string description = 4;
     }
@@ -174,7 +173,7 @@ service UserInterfaceService {
 
     /* requires the UserInterfaceId as argument and returns the UserInterface Object.. */
     rpc GetUserInterface(UserInterfaceId) returns (UserInterface) {}
-    rpc AddUserInterface (UserInterface) returns (UserInterface) {}
+    rpc AddUserInterface (UserInterfaceId) returns (UserInterface) {}
     rpc EditUserInterface (UserInterface) returns (UserInterface) {}
     rpc DeleteUserInterface (UserInterfaceId) returns (Empty) {}
 

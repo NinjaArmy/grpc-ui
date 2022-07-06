@@ -26,7 +26,7 @@ let userInterfaces = [
       },
       // Question here
       appliance_type: "",
-      views: 1
+      views: [1]
     },
     View: {
       id: 1,
@@ -39,6 +39,13 @@ let userInterfaces = [
         PROGRAM_SETTINGS: "standard",
       },
       type: "home",
+      LayoutContainer: {
+        id: 12,
+        description: "test",
+        components: ["button"],
+        font_size: 12
+      },
+      container: ["LayoutContainer"]
     },
     Notification: {
       id: 1,
@@ -54,7 +61,7 @@ let userInterfaces = [
       description: "Makes a standard coffee"
 
     },
-    userInterfaceParameters: {
+    UserInterfaceParameters: {
       font: "sans-serif",
       font_size_multiplier: 1,
       contrast: 3,
@@ -64,7 +71,7 @@ let userInterfaces = [
       font_italic: 0,
       font_underline: 0,
     },
-    categories: "Coffee",
+    categories: ["Coffee"],
     timestamp: "19.06.2022 - 22:44"
   },
   { 
@@ -78,7 +85,7 @@ let userInterfaces = [
       },
       // Question here
       appliance_type: "",
-      views: 1
+      views: [1]
     },
     View: {
       id: 2,
@@ -91,6 +98,13 @@ let userInterfaces = [
         PROGRAM_SETTINGS: "standard",
       },
       type: "home",
+      LayoutContainer: {
+        id: 13,
+        description: "test",
+        components: ["button"],
+        font_size: 12
+      },
+      container: ["LayoutContainer"]
     },
     Notification: {
       id: 2,
@@ -106,7 +120,7 @@ let userInterfaces = [
       description: "Makes a standard espresso"
 
     },
-    userInterfaceParameters: {
+    UserInterfaceParameters: {
       font: "sans-serif",
       font_size_multiplier: 1,
       contrast: 3,
@@ -117,7 +131,7 @@ let userInterfaces = [
       font_underline: 0,
     },
 
-    categories: "espresso",
+    categories: ["espresso"],
     timestamp: "21.06.2022 - 22:54"
   },
 ];
@@ -202,14 +216,24 @@ server.addService(userInterfaceProto.UserInterfaceService.service, {
     
     /* timestamp probably not editable? */
     userInterfaceItem.appliance_id = _.request.appliance_id;
-    userInterfaceItem.layout = _.request.layout;
-    userInterfaceItem.notifications = _.request.notifications;
+    userInterfaceItem.Layout = _.request.Layout;
+    userInterfaceItem.Notification = _.request.Notification;
     userInterfaceItem.categories = _.request.categories;
-    userInterfaceItem.userInterfaceParameters = _.request.userInterfaceParameters;
+    userInterfaceItem.UserInterfaceParameters = _.request.UserInterfaceParameters;
     callback(null, userInterfaceItem);
   },
   addUserInterface: (call, callback) => {
-    let _userInterface = { id: Date.now(), ...call.request };
+    let _userInterface = 
+    {
+      appliance_id: call.appliance_id,
+      Layout: call.Layout,
+      View: call.View,
+      Notification: call.Notification,
+      UserInterfaceParameters: call.UserInterfaceParameters,
+      categories: call.categories,
+      timestamp: call.timestamp
+    }
+  
     userInterfaces.push(_userInterface);
     callback(null, _userInterface);
   },
@@ -264,7 +288,37 @@ server.addService(userInterfaceProto.UserInterfaceService.service, {
     callback(null, componentItem);
   },
   addComponent: (call, callback) => {
-    let _component = { id: Date.now(), ...call.request };
+    let _component = 
+    { 
+     parameter_id: call.parameter_id,
+     default_value: call.default_value,
+     x: call.x,
+     y: call.y,
+     font_size: call.font_size,
+     /* Button */
+     button_title: call.button_title,
+     icon: call.icon,
+     navigate_to: call.navigate_to,
+     executable: call.executable,
+     program_id: call.program_id,
+     /* DropDown Menu */
+     values: call.values,
+     drop_down: call.drop_down,
+     /* Progressbar */
+     progress_bar: call.progress_bar,
+     /* slider */
+     id: call.id,
+     minimum: call.minimum,
+     maximum: call.maximum,
+     step: call.step,
+     vertical: call.vertical,
+     legend: call.legend,
+     counter_slider: call.counter_slider,
+     width: call.width,
+     unit: call.unit,
+     slider: call.slider,
+     time_selector: call.time_selector
+    };
     userInterfaces.push(_component);
     callback(null, _component);
   },
@@ -295,7 +349,14 @@ server.addService(userInterfaceProto.UserInterfaceService.service, {
     callback(null, wizardItem);
   },
   addWizard: (call, callback) => {
-    let _wizard = { title: Date.now(), ...call.request };
+    let _wizard = 
+    { 
+      title: call.title,
+      Page: call.Page,
+      x: call.x,
+      y: call.y,
+      font_size: call.font_size,
+    };
     wizards.push(_wizard);
     callback(null, _wizard);
   },
